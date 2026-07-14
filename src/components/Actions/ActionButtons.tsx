@@ -1,4 +1,4 @@
-import { PRICES } from '../../utils/constants';
+import { ITEM_LABELS, PRICES } from '../../utils/constants';
 import { formatMoney } from '../../utils/helpers';
 import { useGameLogic } from '../../hooks/useGameLogic';
 
@@ -18,7 +18,7 @@ export function ActionButtons() {
     if (disabled) return;
     if (
       window.confirm(
-        `Buy coffee? −${formatMoney(PRICES.coffee)} from savings`,
+        `${ITEM_LABELS.coffee.confirmBuy}? −${formatMoney(PRICES.coffee)} from vault savings`,
       )
     ) {
       coffeeBuy();
@@ -29,7 +29,7 @@ export function ActionButtons() {
     if (disabled) return;
     if (
       window.confirm(
-        `Buy cigarettes? −${formatMoney(PRICES.cigarettes)} from savings`,
+        `${ITEM_LABELS.cigarettes.confirmBuy}? −${formatMoney(PRICES.cigarettes)} from vault savings`,
       )
     ) {
       cigaretteBuy();
@@ -40,7 +40,7 @@ export function ActionButtons() {
     if (disabled) return;
     if (
       window.confirm(
-        `Buy an energy drink? −${formatMoney(PRICES.energy)} from savings`,
+        `${ITEM_LABELS.energy.confirmBuy}? −${formatMoney(PRICES.energy)} from vault savings`,
       )
     ) {
       energyBuy();
@@ -55,11 +55,11 @@ export function ActionButtons() {
         disabled={disabled}
         onClick={onBuyCigarettes}
       >
-        🚬 Smoked
+        🚬 {ITEM_LABELS.cigarettes.did}
         <span className="btn-sub">−{formatMoney(PRICES.cigarettes)}</span>
       </button>
       <button type="button" className="btn" disabled={disabled} onClick={cigaretteSave}>
-        🚬 Didn’t smoke
+        🚬 {ITEM_LABELS.cigarettes.skipped}
         <span className="btn-sub">+{formatMoney(PRICES.cigarettes)}</span>
       </button>
 
@@ -69,11 +69,11 @@ export function ActionButtons() {
         disabled={disabled}
         onClick={onBuyCoffee}
       >
-        ☕ Drank coffee
+        ☢ {ITEM_LABELS.coffee.did}
         <span className="btn-sub">−{formatMoney(PRICES.coffee)}</span>
       </button>
       <button type="button" className="btn" disabled={disabled} onClick={coffeeSave}>
-        ☕ Didn’t drink coffee
+        ☢ {ITEM_LABELS.coffee.skipped}
         <span className="btn-sub">+{formatMoney(PRICES.coffee)}</span>
       </button>
 
@@ -83,11 +83,11 @@ export function ActionButtons() {
         disabled={disabled}
         onClick={onBuyEnergy}
       >
-        ⚡ Drank energy
+        💉 {ITEM_LABELS.energy.did}
         <span className="btn-sub">−{formatMoney(PRICES.energy)}</span>
       </button>
       <button type="button" className="btn" disabled={disabled} onClick={energySave}>
-        ⚡ Didn’t drink energy
+        💉 {ITEM_LABELS.energy.skipped}
         <span className="btn-sub">+{formatMoney(PRICES.energy)}</span>
       </button>
     </div>

@@ -17,5 +17,5 @@ export function buildShareMessage(
   goalAmount: number,
   days: number,
 ): string {
-  return `🎉 I reached my goal "${goalName}"! Saved ${formatMoney(goalAmount)} in ${days} day${days === 1 ? '' : 's'}. Join me!`;
+  return `☢ Quest complete: "${goalName}"! Saved ${formatMoney(goalAmount)} in ${days} day${days === 1 ? '' : 's'} on the wasteland road. War never changes — thrift can.`;
 }

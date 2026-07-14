@@ -113,15 +113,15 @@ export function Game() {
         <div className="brand">{state.goalName}</div>
         <div className="header-stats">
           <div>
-            Goal
+            Objective
             <strong>{formatMoney(state.goalAmount)}</strong>
           </div>
           <div>
-            Saved
+            Caps
             <strong>{formatMoney(state.saved)}</strong>
           </div>
           <div>
-            Left
+            Remaining
             <strong>{formatMoney(remaining)}</strong>
           </div>
         </div>
@@ -129,7 +129,7 @@ export function Game() {
 
       {toastMilestone && (
         <div className="milestone-toast panel">
-          <strong>🎁 {toastMilestone.title}</strong>
+          <strong>☢ {toastMilestone.title}</strong>
           <div className="muted">{toastMilestone.blurb}</div>
         </div>
       )}

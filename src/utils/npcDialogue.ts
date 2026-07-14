@@ -1,69 +1,69 @@
-/** Character sheet indices → display name + banter lines */
+/** Wasteland NPCs — Pip-Boy dialogue flavor */
 export const NPC_PROFILES: Record<
   number,
   { name: string; lines: string[] }
 > = {
   0: {
-    name: 'Wanderer',
+    name: 'Vault Dweller',
     lines: [
-      'Skip one coffee today. Future you will thank you.',
-      'The path looks long, but every cell counts.',
-      'I quit energy drinks last month. Still twitching. Worth it.',
+      'War never changes. Your spending habits can.',
+      'Another Nuka skipped is another step west.',
+      'The Overseer would approve this thrift.',
     ],
   },
   2: {
-    name: 'Villager',
+    name: 'Caravan Trader',
     lines: [
-      'My piggy bank is jealous of yours. Keep going!',
-      'Smoke less, dream more. That’s the village motto.',
-      'There’s a chest ahead… or maybe just a rock. Stay curious.',
+      'Caps in the tin beat caps in the bar.',
+      'I sell junk. You sell discipline. Fair trade.',
+      'Resist Jet today — your future self sends thanks.',
     ],
   },
   3: {
-    name: 'Skeleton Guard',
+    name: 'Ghoul Scout',
     lines: [
-      'I saved for decades. Literally. Bones and all.',
-      'Buy nothing today. That’s an order from beyond.',
-      'Death is free. Cigarettes aren’t. Choose wisely.',
+      'I’ve outlived brands. Skip the smoke. Stay irradiated… thrifty.',
+      'Wasteland tip: don’t buy what won’t help you survive.',
+      'Your map marker looks stronger already.',
     ],
   },
   4: {
-    name: 'Slime Buddy',
+    name: 'Super Mutant',
     lines: [
-      'Blorp! Saving is sticky business. You’re doing great!',
-      'I invested in goo. You invest in goals. Same vibe.',
-      'Don’t slide backward… unless it’s a bargain. Wait, no bargains!',
+      'HUNGRY FOR CAPS? SAVE THEM. SMARTER THAN BRAHMIN.',
+      'NO JET. STRONG MIND. STRONG VAULT.',
+      'GOAL AHEAD. KEEP WALKING, HUMAN.',
     ],
   },
   5: {
-    name: 'Night Bat',
+    name: 'Nightkin',
     lines: [
-      'I only shop at midnight sales. Bad habit. Don’t copy me.',
-      'Flap past temptation. Your goal is louder than ads.',
-      'Coffee after dark? Bold. Skipping it? Bolder.',
+      'Stealth boy for wallets: just don’t buy stuff.',
+      'I saw your objective. It’s brighter than a flare.',
+      'Shadow the urge. Pass the Nuka.',
     ],
   },
   6: {
-    name: 'Ghost Banker',
+    name: 'Mr. Handy',
     lines: [
-      'Interest compounds. So does regret. Prefer the first.',
-      'Your balance sheet looks… almost haunted by progress.',
-      'Withdraw from bad habits. Deposit into the dream.',
+      'Sir/madam, your ledger is delightfully green today.',
+      'Shall I file this as “resisted temptation”? Excellent.',
+      'Compound interest and compound willpower. Both recommended.',
     ],
   },
   7: {
-    name: 'Beetle Merchant',
+    name: 'Brahmin Herder',
     lines: [
-      'I sell pebbles. You sell discipline. You’re richer already.',
-      'Click your heels — and skip that purchase.',
-      'Trade you a tip: the finish line loves thrifty travelers.',
+      'Slow and steady. Like a two-headed brahmin.',
+      'Don’t light up — the trail’s long enough.',
+      'Checkpoint ahead. Keep those caps stacked.',
     ],
   },
 };
 
 const FALLBACK = {
-  name: 'Traveler',
-  lines: ['Nice pace. The map remembers every smart choice.'],
+  name: 'Wastelander',
+  lines: ['Nice pace, traveler. The wasteland rewards the thrifty.'],
 };
 
 export function getNpcProfile(npcIndex: number) {
@@ -76,7 +76,8 @@ export function pickNpcLine(
   cellIndex: number,
 ): string {
   const profile = getNpcProfile(npcIndex);
-  const i = Math.abs((seed ^ (cellIndex * 2654435761)) >>> 0) % profile.lines.length;
+  const i =
+    Math.abs((seed ^ (cellIndex * 2654435761)) >>> 0) % profile.lines.length;
   return profile.lines[i];
 }
 

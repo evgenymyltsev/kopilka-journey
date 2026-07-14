@@ -19,7 +19,7 @@ export function RewardsPanel({
 
   return (
     <div className="panel">
-      <div className="panel-title">Rewards along the path</div>
+      <div className="panel-title">Quest markers</div>
       <div className="rewards-list">
         {list.map((m) => (
           <RewardRow

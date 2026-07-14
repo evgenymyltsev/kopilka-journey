@@ -11,8 +11,8 @@ export function ProgressBar({ saved, goal }: ProgressBarProps) {
   return (
     <div>
       <div className="progress-label">
-        <span>💰 {formatMoney(saved)}</span>
-        <span>🎯 {formatMoney(goal)}</span>
+        <span>◈ {formatMoney(saved)}</span>
+        <span>⚑ {formatMoney(goal)}</span>
       </div>
       <div className="progress-bar">
         <div className="progress-fill" style={{ width: `${progress}%` }} />

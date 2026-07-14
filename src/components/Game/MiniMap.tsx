@@ -175,10 +175,10 @@ export function MiniMap({
       <canvas ref={canvasRef} style={{ width: W, height: H }} />
       <div className="minimap-legend">
         <span>
-          <i className="dot reward" /> reward
+          <i className="dot reward" /> stash
         </span>
         <span>
-          <i className="dot npc" /> NPC
+          <i className="dot npc" /> wastelander
         </span>
         <span>
           <i className="dot you" /> you

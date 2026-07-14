@@ -7,74 +7,73 @@ export interface MilestoneDef {
   threshold: number;
   title: string;
   blurb: string;
-  /** индекс персонажа на characters sheet (0..7, кроме 1 = игрок) */
   npcIndex: number;
   rewardKind: 'chest' | 'pot' | 'torch' | 'campfire';
 }
 
-/** Фиксированные вехи геймификации */
+/** Quest markers along the wasteland road */
 export const MILESTONE_DEFS: MilestoneDef[] = [
   {
     id: 'm1500',
     threshold: 1500,
-    title: 'First checkpoint',
-    blurb: 'You saved 1,500₽ — a traveler waves at you!',
+    title: 'Radio Signal',
+    blurb: '1,500₽ logged. A Vault Dweller tips their helmet.',
     npcIndex: 0,
     rewardKind: 'pot',
   },
   {
     id: 'm5000',
     threshold: 5000,
-    title: 'Warming up',
-    blurb: '5,000₽ in the piggy bank. The village trader is pleased.',
+    title: 'Caravan Cache',
+    blurb: '5,000₽ secured. The caravan trader marks you as trusted.',
     npcIndex: 2,
     rewardKind: 'chest',
   },
   {
     id: 'm10000',
     threshold: 10000,
-    title: 'Ten grand',
-    blurb: '10,000₽! The chest guard nods.',
+    title: 'Bunker Door',
+    blurb: '10,000₽. A ghoul scout unseals a stash for you.',
     npcIndex: 3,
     rewardKind: 'chest',
   },
   {
     id: 'm25000',
     threshold: 25000,
-    title: 'Quarter way',
-    blurb: '25,000₽ — the city is already in sight.',
+    title: 'Highway Flare',
+    blurb: '25,000₽ — city ruins on the horizon.',
     npcIndex: 0,
     rewardKind: 'torch',
   },
   {
     id: 'm50000',
     threshold: 50000,
-    title: 'Fifty K',
-    blurb: '50,000₽. The ghost banker applauds.',
+    title: 'Mr. Handy Audit',
+    blurb: '50,000₽. Your Pip-Boy ledger gets a gold star. Metaphorically.',
     npcIndex: 6,
     rewardKind: 'campfire',
   },
   {
     id: 'm100000',
     threshold: 100000,
-    title: 'Hundred K',
-    blurb: '100,000₽ — the legendary chest is open.',
+    title: 'Legendary Stash',
+    blurb: '100,000₽ — the wasteland’s best-kept chest creaks open.',
     npcIndex: 2,
     rewardKind: 'chest',
   },
   {
     id: 'm250000',
     threshold: 250000,
-    title: 'Champion',
-    blurb: '250,000₽. The slime treasurer is stunned.',
+    title: 'Mutant Respect',
+    blurb: '250,000₽. Even a Super Mutant nods. Slowly.',
     npcIndex: 4,
     rewardKind: 'chest',
   },
   {
     id: 'm500000',
     threshold: 500000,
-    title: 'Half a million',
-    blurb: '500,000₽ — almost at the finish line.',
+    title: 'Almost Home',
+    blurb: '500,000₽ — objective nearly complete, vaultie.',
     npcIndex: 7,
     rewardKind: 'torch',
   },
@@ -85,7 +84,6 @@ export interface MapMilestone {
   cellIndex: number;
 }
 
-/** Вехи, которые помещаются до цели (строго меньше goal, финиш — отдельно) */
 export function milestonesForGoal(goalAmount: number): MilestoneDef[] {
   return MILESTONE_DEFS.filter((m) => m.threshold < goalAmount);
 }
@@ -116,7 +114,6 @@ export function newlyReachedMilestones(
   );
 }
 
-/** characters.png: 4×2 блока по 48×64, кадр 16×16, idle = центр, down */
 export function npcIdleFrame(npcIndex: number): SpriteRect {
   const idx = ((npcIndex % 8) + 8) % 8;
   const cx = idx % 4;

@@ -1,4 +1,4 @@
-import { PRICES } from '../../utils/constants';
+import { ITEM_LABELS, PRICES } from '../../utils/constants';
 import { formatMoney } from '../../utils/helpers';
 
 interface StatsPanelProps {
@@ -30,46 +30,46 @@ export function StatsPanel({
 
   return (
     <div className="panel">
-      <div className="panel-title">Stats</div>
+      <div className="panel-title">Pip-Boy Ledger</div>
       <div className="stats-list">
         <div className="stat-row">
-          <span>☕ Coffee skipped</span>
+          <span>☢ {ITEM_LABELS.coffee.skippedStat}</span>
           <span>
             {coffeeSaves}× ({formatMoney(coffeeSaves * PRICES.coffee)})
           </span>
         </div>
         <div className="stat-row">
-          <span>☕ Coffee bought</span>
+          <span>☢ {ITEM_LABELS.coffee.boughtStat}</span>
           <span>
             {coffeeBuys}× (−{formatMoney(coffeeBuys * PRICES.coffee)})
           </span>
         </div>
         <div className="stat-row">
-          <span>🚬 Cigarettes skipped</span>
+          <span>🚬 {ITEM_LABELS.cigarettes.skippedStat}</span>
           <span>
             {cigaretteSaves}× ({formatMoney(cigaretteSaves * PRICES.cigarettes)})
           </span>
         </div>
         <div className="stat-row">
-          <span>🚬 Cigarettes bought</span>
+          <span>🚬 {ITEM_LABELS.cigarettes.boughtStat}</span>
           <span>
             {cigaretteBuys}× (−{formatMoney(cigaretteBuys * PRICES.cigarettes)})
           </span>
         </div>
         <div className="stat-row">
-          <span>⚡ Energy drinks skipped</span>
+          <span>💉 {ITEM_LABELS.energy.skippedStat}</span>
           <span>
             {energySaves}× ({formatMoney(energySaves * PRICES.energy)})
           </span>
         </div>
         <div className="stat-row">
-          <span>⚡ Energy drinks bought</span>
+          <span>💉 {ITEM_LABELS.energy.boughtStat}</span>
           <span>
             {energyBuys}× (−{formatMoney(energyBuys * PRICES.energy)})
           </span>
         </div>
         <div className="stat-row total">
-          <span>Net total</span>
+          <span>Net caps</span>
           <span>
             {net < 0 ? '−' : ''}
             {formatMoney(Math.abs(net))}

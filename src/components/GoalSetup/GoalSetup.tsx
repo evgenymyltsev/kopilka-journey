@@ -11,11 +11,11 @@ export function GoalSetup() {
     e.preventDefault();
     const value = Number(amount.replace(/\s/g, ''));
     if (!name.trim()) {
-      setError('Enter a goal name');
+      setError('Enter an objective name');
       return;
     }
     if (!Number.isFinite(value) || value <= 0) {
-      setError('Amount must be greater than 0');
+      setError('Caps target must be greater than 0');
       return;
     }
     setError('');
@@ -24,23 +24,23 @@ export function GoalSetup() {
 
   return (
     <div className="panel">
-      <div className="brand">Pip-Boy · Path to Goal</div>
+      <div className="brand">Pip-Boy · Wasteland Road</div>
       <p className="muted" style={{ textAlign: 'center', marginBottom: 16 }}>
-        Skip coffee, smokes, and energy drinks — walk the wasteland to your goal.
+        Resist coffee, cigarettes, and energy — cross the wasteland to your objective.
       </p>
       <form onSubmit={onSubmit}>
         <div className="field">
-          <label htmlFor="goal-name">Goal name</label>
+          <label htmlFor="goal-name">Objective</label>
           <input
             id="goal-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="New laptop"
+            placeholder="Plasma rifle / new armor"
             autoComplete="off"
           />
         </div>
         <div className="field">
-          <label htmlFor="goal-amount">Goal amount (₽)</label>
+          <label htmlFor="goal-amount">Caps target (₽)</label>
           <input
             id="goal-amount"
             inputMode="numeric"
@@ -51,7 +51,7 @@ export function GoalSetup() {
           {error && <span className="error">{error}</span>}
         </div>
         <button type="submit" className="btn btn-primary">
-          Start the journey
+          Begin expedition
         </button>
       </form>
     </div>
