@@ -8,7 +8,6 @@ interface StatsPanelProps {
   cigaretteBuys: number;
   energySaves: number;
   energyBuys: number;
-  totalSaved: number;
 }
 
 export function StatsPanel({
@@ -18,8 +17,17 @@ export function StatsPanel({
   cigaretteBuys,
   energySaves,
   energyBuys,
-  totalSaved,
 }: StatsPanelProps) {
+  const skipped =
+    coffeeSaves * PRICES.coffee +
+    cigaretteSaves * PRICES.cigarettes +
+    energySaves * PRICES.energy;
+  const spent =
+    coffeeBuys * PRICES.coffee +
+    cigaretteBuys * PRICES.cigarettes +
+    energyBuys * PRICES.energy;
+  const net = skipped - spent;
+
   return (
     <div className="panel">
       <div className="panel-title">Stats</div>
@@ -61,8 +69,11 @@ export function StatsPanel({
           </span>
         </div>
         <div className="stat-row total">
-          <span>Total saved</span>
-          <span>{formatMoney(totalSaved)}</span>
+          <span>Net total</span>
+          <span>
+            {net < 0 ? '−' : ''}
+            {formatMoney(Math.abs(net))}
+          </span>
         </div>
       </div>
     </div>

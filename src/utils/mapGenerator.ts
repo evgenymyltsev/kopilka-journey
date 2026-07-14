@@ -1,4 +1,5 @@
 import { CELL_PX } from './constants';
+import { getNpcProfile, pickNpcLine } from './npcDialogue';
 import { SPRITES, type SpriteRect } from './sprites';
 
 export type TerrainStage = 'forest' | 'village' | 'city' | 'finish';
@@ -292,6 +293,9 @@ export interface WanderNpc {
   npcIndex: number;
   offsetX: number;
   offsetY: number;
+  name: string;
+  line: string;
+  key: string;
 }
 
 /** Бродячие NPC — тот же seed, что и на большой карте */
@@ -311,11 +315,16 @@ export function generateWanderers(
     const cellIndex = 1 + Math.floor(rng() * Math.max(1, totalCells - 2));
     if (reserved.has(cellIndex)) continue;
     reserved.add(cellIndex);
+    const npcIndex = npcPool[Math.floor(rng() * npcPool.length)];
+    const profile = getNpcProfile(npcIndex);
     list.push({
       cellIndex,
-      npcIndex: npcPool[Math.floor(rng() * npcPool.length)],
+      npcIndex,
       offsetX: (rng() - 0.5) * CELL_PX * 0.5,
       offsetY: (rng() - 0.5) * CELL_PX * 0.35,
+      name: profile.name,
+      line: pickNpcLine(npcIndex, mapSeed, cellIndex),
+      key: `wander-${cellIndex}-${npcIndex}`,
     });
   }
   return list;

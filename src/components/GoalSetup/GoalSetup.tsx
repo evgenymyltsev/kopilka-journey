@@ -24,9 +24,9 @@ export function GoalSetup() {
 
   return (
     <div className="panel">
-      <div className="brand">Piggy Bank: Path to Goal</div>
+      <div className="brand">Pip-Boy · Path to Goal</div>
       <p className="muted" style={{ textAlign: 'center', marginBottom: 16 }}>
-        Skip coffee, smokes, and energy drinks — walk the map to your goal.
+        Skip coffee, smokes, and energy drinks — walk the wasteland to your goal.
       </p>
       <form onSubmit={onSubmit}>
         <div className="field">
@@ -50,7 +50,7 @@ export function GoalSetup() {
           />
           {error && <span className="error">{error}</span>}
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="btn btn-primary">
           Start the journey
         </button>
       </form>

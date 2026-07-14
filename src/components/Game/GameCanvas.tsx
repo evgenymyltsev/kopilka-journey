@@ -6,6 +6,7 @@ import {
   generateWanderers,
   getCellSprites,
   samplePath,
+  type WanderNpc,
 } from '../../utils/mapGenerator';
 import {
   npcIdleFrame,
@@ -13,6 +14,7 @@ import {
   rewardSpriteKind,
   type MapMilestone,
 } from '../../utils/rewards';
+import { drawSpeechBubble } from '../../utils/speechBubble';
 import {
   drawSprite,
   loadSpriteSheets,
@@ -22,6 +24,16 @@ import {
 } from '../../utils/sprites';
 import { MiniMap } from './MiniMap';
 
+export interface CanvasSpeech {
+  key: string;
+  name: string;
+  line: string;
+  cellIndex: number;
+  offsetX?: number;
+  offsetY?: number;
+  kind: 'wander' | 'milestone';
+}
+
 interface GameCanvasProps {
   saved: number;
   goalAmount: number;
@@ -29,6 +41,7 @@ interface GameCanvasProps {
   currentCell: number;
   mapSeed: number;
   claimedMilestones: string[];
+  speech: CanvasSpeech | null;
 }
 
 export function GameCanvas({
@@ -38,9 +51,13 @@ export function GameCanvas({
   currentCell,
   mapSeed,
   claimedMilestones,
+  speech,
 }: GameCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sheetsRef = useRef<SheetMap | null>(null);
+  const speechRef = useRef(speech);
+  speechRef.current = speech;
+
   const path = useMemo(
     () => generatePath(totalCells, mapSeed),
     [totalCells, mapSeed],
@@ -180,6 +197,33 @@ export function GameCanvas({
       c.fillText(`${m.def.threshold}`, x + 2, y + CELL_PX + 10);
     };
 
+    const drawActiveBubble = (
+      c: CanvasRenderingContext2D,
+      anim: { camX: number; camY: number; bob: number },
+      active: CanvasSpeech,
+      wanderList: WanderNpc[],
+    ) => {
+      const p = path[active.cellIndex];
+      if (!p) return;
+
+      let ax: number;
+      let ay: number;
+
+      if (active.kind === 'wander') {
+        const npc = wanderList.find((n) => n.key === active.key);
+        const ox = npc?.offsetX ?? active.offsetX ?? 0;
+        const oy = npc?.offsetY ?? active.offsetY ?? 0;
+        const bob = Math.sin(anim.bob * 2 + active.cellIndex) * 2;
+        ax = p.x - anim.camX + ox + 10 + CELL_PX * 0.32;
+        ay = p.y - anim.camY + oy - CELL_PX * 0.4 + bob;
+      } else {
+        ax = p.x - anim.camX + CELL_PX * 0.55 + CELL_PX * 0.35;
+        ay = p.y - anim.camY - CELL_PX * 0.45;
+      }
+
+      drawSpeechBubble(c, ax, ay, active.name, active.line, 168);
+    };
+
     const draw = (c: CanvasRenderingContext2D, w: number, h: number) => {
       const sheets = sheetsRef.current;
       const anim = animRef.current;
@@ -231,7 +275,6 @@ export function GameCanvas({
 
         if (sheets) {
           drawSprite(c, sheets, ground, x, y, CELL_PX, CELL_PX, alpha);
-          // обычный декор пропускаем на клетках с наградой
           if (prop && !milestone) {
             const propH = prop.h > 16 ? CELL_PX * 1.4 : CELL_PX * 0.9;
             const propY = y - (propH - CELL_PX * 0.55);
@@ -257,7 +300,6 @@ export function GameCanvas({
         }
       }
 
-      // странствующие NPC
       if (sheets) {
         for (const npc of wanderers) {
           const p = path[npc.cellIndex];
@@ -295,6 +337,11 @@ export function GameCanvas({
       } else {
         c.fillStyle = '#58a6ff';
         c.fillRect(px + 12, py, 24, 32);
+      }
+
+      const active = speechRef.current;
+      if (active) {
+        drawActiveBubble(c, anim, active, wanderers);
       }
 
       c.fillStyle = '#e6edf3';

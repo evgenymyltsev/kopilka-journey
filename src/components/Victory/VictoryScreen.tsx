@@ -48,7 +48,6 @@ export function VictoryScreen() {
         cigaretteBuys={state.cigaretteBuys}
         energySaves={state.energySaves ?? 0}
         energyBuys={state.energyBuys ?? 0}
-        totalSaved={state.totalSaved}
       />
 
       <div className="stats-list" style={{ margin: '12px 0' }}>
@@ -67,7 +66,7 @@ export function VictoryScreen() {
       </div>
 
       <div className="btn-row">
-        <button type="button" className="btn" onClick={share}>
+        <button type="button" className="btn btn-primary" onClick={share}>
           Share
         </button>
         <button type="button" className="btn btn-danger" onClick={resetGame}>
